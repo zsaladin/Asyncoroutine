@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -33,7 +33,18 @@ namespace Asyncoroutine
             Instruction = instruction;
             Coroutine = new Enumerator(this);
 
-            AwaiterCoroutineer.Instance.StartAwaiterCoroutine(Coroutine);
+            AwaiterCoroutineer.Instance.StartAwaiterCoroutine(this);
+        }
+
+        public AwaiterCoroutine(Func<TInstruction> func)
+        {
+            AwaiterCoroutineer.Instance.SynchronizationContext.Send(state =>
+            {
+                Instruction = func();
+                Coroutine = new Enumerator(this);
+
+                AwaiterCoroutineer.Instance.StartAwaiterCoroutine(this);
+            }, null);
         }
 
         public TInstruction GetResult()
@@ -45,7 +56,28 @@ namespace Asyncoroutine
         {
             _continuation = continuation;
         }
-        
+
+        public AwaiterCoroutine<TInstruction> GetAwaiter()
+        {
+            return this;
+        }
+    }
+
+    public class AwaiterCoroutine
+    {
+        public static void Initialize()
+        {
+            // Just for instantiating
+            AwaiterCoroutineer awaiterCoroutineer = AwaiterCoroutineer.Instance;
+        }
+
+        public static AwaiterCoroutine<TInstruction> Dispatch<TInstruction>(Func<TInstruction> func)
+        {
+            if (SynchronizationContext.Current != null)
+                return new AwaiterCoroutine<TInstruction>(func());
+
+            return new AwaiterCoroutine<TInstruction>(func);
+        }
 
         public static readonly AwaiterCoroutine<object> NextFrame = default(AwaiterCoroutine<object>);
     }
