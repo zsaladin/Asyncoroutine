@@ -71,7 +71,7 @@ namespace Asyncoroutine
             AwaiterCoroutineer awaiterCoroutineer = AwaiterCoroutineer.Instance;
         }
 
-        public static AwaiterCoroutine<TInstruction> Dispatch<TInstruction>(Func<TInstruction> func)
+        public static AwaiterCoroutine<TInstruction> Sync<TInstruction>(Func<TInstruction> func)
         {
             if (SynchronizationContext.Current != null)
                 return new AwaiterCoroutine<TInstruction>(func());

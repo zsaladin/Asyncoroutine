@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Asyncoroutine.Example
 {
-    public class Basic : MonoBehaviour
+    public class ExampleBasic : MonoBehaviour
     {
-        async void Start()
+        async void Awake()
         {
             await new WaitForSeconds(1f);
             Debug.Log("WaitForSeconds");
