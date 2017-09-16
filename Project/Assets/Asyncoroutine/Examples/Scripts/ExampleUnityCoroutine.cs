@@ -11,11 +11,9 @@ namespace Asyncoroutine
         private IEnumerator Start()
         {
             yield return new WaitForSeconds(1f);
-
             Debug.Log("WaitForSeconds");
 
             yield return Task.Delay(1000).AsCoroutine();
-
             Debug.Log("AsCoroutine1 Delay");
 
             var taskYieldInstruction = Task.Run(() => LongTimeJob()).AsCoroutine();
