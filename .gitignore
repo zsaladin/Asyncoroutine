@@ -31,6 +31,5 @@ sysinfo.txt
 
 # Builds
 *.apk
-*.unitypackage
 Project/Assets/Plugins.meta
 Project/Assets/Plugins/
