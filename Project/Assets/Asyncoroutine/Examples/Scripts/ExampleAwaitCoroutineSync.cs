@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Asyncoroutine.Example
 {
-    public class ExampleSynchronization : MonoBehaviour
+    public class ExampleAwaitCoroutineSync : MonoBehaviour
     {
         private async void Example1()
         {

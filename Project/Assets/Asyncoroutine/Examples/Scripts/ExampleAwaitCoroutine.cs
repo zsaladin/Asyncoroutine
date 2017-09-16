@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Asyncoroutine.Example
 {
-    public class ExampleBasic : MonoBehaviour
+    public class ExampleAwaitCoroutine : MonoBehaviour
     {
         async void Awake()
         {
