@@ -1,6 +1,6 @@
 # Asyncoroutine
 
-Asyncoroutine is a unity assset that allows you to use Coroutine and async/await together.
+Asyncoroutine is a unity asset that allows you to use Coroutine and async/await together.
 You might face the situation that Coroutine and async/await get together. In this situation 'Asyncoroutine' is useful.
 You don't need to switch your code style from Coroutine to async/await or from async/await to Coroutine by using 'Asyncoroutine'.
 See below.
