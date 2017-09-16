@@ -8,9 +8,9 @@ namespace Asyncoroutine
 {
     public static class AwaiterCoroutineExtension
     {
-        public static AwaiterCoroutine<object> GetAwaiter(this AwaiterCoroutine<object> nextFrame)
+        public static AwaiterCoroutine<WaitForNextFrame> GetAwaiter(this WaitForNextFrame nextFrame)
         {
-            return new AwaiterCoroutine<object>(null);
+            return new AwaiterCoroutine<WaitForNextFrame>(nextFrame);
         }
 
         public static AwaiterCoroutine<IEnumerator> GetAwaiter(this IEnumerator coroutine)
@@ -77,4 +77,6 @@ namespace Asyncoroutine
             var instance = AwaiterCoroutineer.Instance;
         }
     }
+
+    public struct WaitForNextFrame { }
 }

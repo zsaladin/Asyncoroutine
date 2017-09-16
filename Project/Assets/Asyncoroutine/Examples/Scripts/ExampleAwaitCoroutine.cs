@@ -13,6 +13,9 @@ namespace Asyncoroutine.Example
             await new WaitForSeconds(1f);
             Debug.Log("WaitForSeconds");
 
+            await new WaitForNextFrame();
+            Debug.Log("WaitForNextFrame");
+
             await Task.Delay(1000);
             Debug.Log("Delay");
 

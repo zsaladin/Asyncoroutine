@@ -62,9 +62,4 @@ namespace Asyncoroutine
             return this;
         }
     }
-
-    public class AwaiterCoroutine
-    {
-        public static readonly AwaiterCoroutine<object> NextFrame = default(AwaiterCoroutine<object>);
-    }
 }
