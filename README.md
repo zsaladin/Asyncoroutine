@@ -58,6 +58,8 @@ private IEnumerator Start()
 ```
 Just write 'AsCoroutine()' at the end of Task. It creates a proper YieldInstrunction which Coroutine can handle.
 
+#### Note : You must have Unity 2017 or above and be sure that Scripting Runtime Version is '.Net 4.6'.
+
 ## Author
 - Kim Daehee, Software engineer in Korea.
 - zsaladinz@gmail.com
