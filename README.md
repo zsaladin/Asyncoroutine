@@ -7,7 +7,7 @@ See below.
 
 ## How to use
 ### Coroutine in async/await
-You can use Coroutine in async/await.
+You can 'await' Coroutine in async/await.
 ```C#
 using Asyncoroutine;
 
@@ -29,7 +29,7 @@ async void Awake()
     Debug.Log("UnityCoroutine");
 }
 ```
-As you can see, you just write 'await' Coroutine or YieldInstrunction like WaitForSeconds.
+As you can see, you just write 'await' at the front of Coroutine or YieldInstrunction like WaitForSeconds.
 All the things will happen by 'using Asyncoroutine'.
 
 Also it makes 'Awake' and 'OnEnable' use Coroutine. Unlike 'Start' we could not use Coroutine in them but you can from now.
