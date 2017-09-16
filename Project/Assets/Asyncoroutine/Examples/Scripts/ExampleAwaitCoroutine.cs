@@ -45,5 +45,12 @@ namespace Asyncoroutine.Example
                 Debug.Log("UnityCoroutine4");
             }
         }
+
+        async void OnDisable()
+        {
+            await UnityCoroutine();
+            WWW www = await new WWW("http://google.com");
+            Debug.Log(www.text);
+        }
     }
 }
