@@ -62,5 +62,19 @@ namespace Asyncoroutine
         {
             return new AwaiterCoroutine<CustomYieldInstruction>(customYieldInstruction);
         }
+
+        public static AwaiterCoroutine<TInstruction> CoroutineSync<TInstruction>(this object obj, Func<TInstruction> func)
+        {
+            if (SynchronizationContext.Current != null)
+                return new AwaiterCoroutine<TInstruction>(func());
+
+            return new AwaiterCoroutine<TInstruction>(func);
+        }
+
+        public static void CoroutineSyncInit(this object obj)
+        {
+            // Just for instantiating
+            var instance = AwaiterCoroutineer.Instance;
+        }
     }
 }

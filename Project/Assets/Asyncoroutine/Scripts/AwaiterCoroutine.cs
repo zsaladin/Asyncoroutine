@@ -65,20 +65,6 @@ namespace Asyncoroutine
 
     public class AwaiterCoroutine
     {
-        public static void Initialize()
-        {
-            // Just for instantiating
-            AwaiterCoroutineer awaiterCoroutineer = AwaiterCoroutineer.Instance;
-        }
-
-        public static AwaiterCoroutine<TInstruction> Sync<TInstruction>(Func<TInstruction> func)
-        {
-            if (SynchronizationContext.Current != null)
-                return new AwaiterCoroutine<TInstruction>(func());
-
-            return new AwaiterCoroutine<TInstruction>(func);
-        }
-
         public static readonly AwaiterCoroutine<object> NextFrame = default(AwaiterCoroutine<object>);
     }
 }
