@@ -65,9 +65,6 @@ namespace Asyncoroutine
 
         public static AwaiterCoroutine<TInstruction> CoroutineSync<TInstruction>(this object obj, Func<TInstruction> func)
         {
-            if (SynchronizationContext.Current != null)
-                return new AwaiterCoroutine<TInstruction>(func());
-
             return new AwaiterCoroutine<TInstruction>(func);
         }
 

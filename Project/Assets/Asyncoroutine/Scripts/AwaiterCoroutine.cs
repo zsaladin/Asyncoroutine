@@ -30,21 +30,30 @@ namespace Asyncoroutine
 
         public AwaiterCoroutine(TInstruction instruction)
         {
-            Instruction = instruction;
-            Coroutine = new Enumerator(this);
-
-            AwaiterCoroutineer.Instance.StartAwaiterCoroutine(this);
+            ProcessCoroutine(instruction);
         }
 
         public AwaiterCoroutine(Func<TInstruction> func)
         {
-            AwaiterCoroutineer.Instance.SynchronizationContext.Send(state =>
+            if (SynchronizationContext.Current != null)
             {
-                Instruction = func();
-                Coroutine = new Enumerator(this);
+                ProcessCoroutine(func());
+            }
+            else
+            {
+                AwaiterCoroutineer.Instance.SynchronizationContext.Post(state =>
+                {
+                    ProcessCoroutine(func());
+                }, null);
+            }
+        }
 
-                AwaiterCoroutineer.Instance.StartAwaiterCoroutine(this);
-            }, null);
+        private void ProcessCoroutine(TInstruction instruction)
+        {
+            Instruction = instruction;
+            Coroutine = new Enumerator(this);
+
+            AwaiterCoroutineer.Instance.StartAwaiterCoroutine(this);
         }
 
         public TInstruction GetResult()
