@@ -24,12 +24,12 @@ namespace Asyncoroutine.Example
             Debug.Log("Delay ConfigureAwait(false)");
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
 
-            // This code below will throw an exception for 'WaitForSeconds'. It must be called on main thread.
-            // await new WaitForSeconds(1f);
+            // This code below will throw an exception for 'WWW'. It must be called on main thread.
+            // await new WWW("http://google.com");
 
-            // This 'new WaitForSeconds' will be executed on main thead.
-            await this.CoroutineSync(() => new WaitForSeconds(1f));
-            Debug.Log("AwaiterCoroutine.Sync WaitForSeconds");
+            // This 'new WWW' will be executed on main thead.
+            WWW www = await this.CoroutineSync(() => new WWW("https://api.github.com/users/zsaladin/repos"));
+            Debug.LogFormat("AwaiterCoroutine.Sync WWW {0}", www.text);
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
         }
 
@@ -52,12 +52,12 @@ namespace Asyncoroutine.Example
             Debug.Log("Delay ConfigureAwait(false)");
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
 
-            // This code below will make an exception 'WaitForSeconds'. It must be called on main thread.
-            // await new WaitForSeconds(1f);
+            // This code below will make an exception 'WWW'. It must be called on main thread.
+            // await new WWW("http://google.com");
 
-            // This 'new WaitForSeconds' will be executed on main thead.
-            await this.CoroutineSync(() => new WaitForSeconds(1f));
-            Debug.Log("AwaiterCoroutine.Sync WaitForSeconds");
+            // This 'new WWW' will be executed on main thead.
+            WWW www = await this.CoroutineSync(() => new WWW("https://api.github.com/users/zsaladin/repos"));
+            Debug.LogFormat("AwaiterCoroutine.Sync WWW {0}", www.text);
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
         }
 
