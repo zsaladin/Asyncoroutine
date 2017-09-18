@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Asyncoroutine
@@ -63,64 +63,9 @@ namespace Asyncoroutine
             return new AwaiterCoroutine<CustomYieldInstruction>(customYieldInstruction);
         }
 
-        public static AwaiterCoroutine<WaitForMainThread> GetAwaiter(this WaitForMainThread waitForMainThread)
+        public static AwaiterCoroutineWaitForMainThread GetAwaiter(this WaitForMainThread waitForMainThread)
         {
             return new AwaiterCoroutineWaitForMainThread();
-        }
-
-        public static AwaiterCoroutine<IEnumerator> Awaiter(this WaitForMainThread waitForMainThread, IEnumerator coroutine)
-        {
-            return new AwaiterCoroutine<IEnumerator>(coroutine);
-        }
-
-        public static AwaiterCoroutine<WaitForNextFrame> Awaiter(this WaitForMainThread waitForMainThread, WaitForNextFrame waitForNextFrame)
-        {
-            return new AwaiterCoroutine<WaitForNextFrame>(waitForNextFrame);
-        }
-
-        public static AwaiterCoroutine<WaitForSeconds> Awaiter(this WaitForMainThread waitForMainThread, WaitForSeconds waitForSeconds)
-        {
-            return new AwaiterCoroutine<WaitForSeconds>(waitForSeconds);
-        }
-
-        public static AwaiterCoroutine<WaitForSecondsRealtime> Awaiter(this WaitForMainThread waitForMainThread, WaitForSecondsRealtime waitForSecondsRealtime)
-        {
-            return new AwaiterCoroutine<WaitForSecondsRealtime>(waitForSecondsRealtime);
-        }
-
-        public static AwaiterCoroutine<WaitForEndOfFrame> Awaiter(this WaitForMainThread waitForMainThread, WaitForEndOfFrame waitForEndOfFrame)
-        {
-            return new AwaiterCoroutine<WaitForEndOfFrame>(waitForEndOfFrame);
-        }
-
-        public static AwaiterCoroutine<WaitForFixedUpdate> Awaiter(this WaitForMainThread waitForMainThread, WaitForFixedUpdate waitForFixedUpdate)
-        {
-            return new AwaiterCoroutine<WaitForFixedUpdate>(waitForFixedUpdate);
-        }
-
-        public static AwaiterCoroutine<WaitUntil> Awaiter(this WaitForMainThread waitForMainThread, WaitUntil waitUntil)
-        {
-            return new AwaiterCoroutine<WaitUntil>(waitUntil);
-        }
-
-        public static AwaiterCoroutine<WaitWhile> Awaiter(this WaitForMainThread waitForMainThread, WaitWhile waitWhile)
-        {
-            return new AwaiterCoroutine<WaitWhile>(waitWhile);
-        }
-
-        public static AwaiterCoroutine<WWW> Awaiter(this WaitForMainThread waitForMainThread, WWW www)
-        {
-            return new AwaiterCoroutine<WWW>(www);
-        }
-
-        public static AwaiterCoroutine<AsyncOperation> Awaiter(this WaitForMainThread waitForMainThread, AsyncOperation asyncOperation)
-        {
-            return new AwaiterCoroutine<AsyncOperation>(asyncOperation);
-        }
-
-        public static AwaiterCoroutine<CustomYieldInstruction> Awaiter(this WaitForMainThread waitForMainThread, CustomYieldInstruction customYieldInstruction)
-        {
-            return new AwaiterCoroutine<CustomYieldInstruction>(customYieldInstruction);
         }
     }
 

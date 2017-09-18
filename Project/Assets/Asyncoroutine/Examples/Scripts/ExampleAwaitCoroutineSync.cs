@@ -16,15 +16,7 @@ namespace Asyncoroutine.Example
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
 
             await new WaitForMainThread();
-            WWW www = await new WWW("https://api.github.com/users/zsaladin/repos");
-            Debug.Log(www.text);
-            Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
-
-            await Task.Delay(1000).ConfigureAwait(false);
-            Debug.Log("Delay ConfigureAwait(false)");
-            Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
-
-            www = await new WaitForMainThread().Awaiter(new WWW("https://api.ipify.org?format=json"));
+            WWW www = await new WWW("https://api.ipify.org?format=json");
             Debug.Log(www.text);
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
         }
