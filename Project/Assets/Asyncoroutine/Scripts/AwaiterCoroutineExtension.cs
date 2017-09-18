@@ -124,12 +124,6 @@ namespace Asyncoroutine
         }
     }
 
-    public static class Asyncoroutine
-    {
-        // Just for instantiating
-        public static void Ready() => AwaiterCoroutineer.Init();
-    }
-
     public struct WaitForNextFrame { }
     public struct WaitForMainThread { }
 }

@@ -14,12 +14,13 @@ namespace Asyncoroutine
         {
             get
             {
-                Init();
+                Install();
                 return _instance;
             }
         }
 
-        public static void Init()
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void Install()
         {
             if (_instance == null)
                 _instance = new GameObject("AwaiterCoroutineer").AddComponent<AwaiterCoroutineer>();
