@@ -48,8 +48,11 @@ namespace Asyncoroutine.Example
             // This code below will make an exception 'WWW'. It must be called on main thread.
             // await new WWW(""https://api.github.com/users/zsaladin/repos");
 
-            await new WaitForMainThread();
-            WWW www = await new WWW("https://api.github.com/users/zsaladin/repos");
+            //await new WaitForMainThread();
+            //WWW www = await new WWW("https://api.github.com/users/zsaladin/repos");
+
+            www = await new WaitForMainThread().Awaiter(new WWW("https://api.github.com/users/zsaladin/repos"));
+
             Debug.LogFormat("Asyncoroutine WWW {0}", www.text);
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
         }
