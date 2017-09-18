@@ -14,20 +14,25 @@ namespace Asyncoroutine
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new GameObject("AwaiterCoroutineer").AddComponent<AwaiterCoroutineer>();
-                    DontDestroyOnLoad(_instance);
-                }
-
+                Init();
                 return _instance;
             }
+        }
+
+        public static void Init()
+        {
+            if (_instance == null)
+                _instance = new GameObject("AwaiterCoroutineer").AddComponent<AwaiterCoroutineer>();
         }
 
         public SynchronizationContext SynchronizationContext { get; private set; }
 
         private void Awake()
         {
+            if (_instance == null)
+                _instance = this;
+
+            DontDestroyOnLoad(_instance);
             SynchronizationContext = SynchronizationContext.Current;
         }
 

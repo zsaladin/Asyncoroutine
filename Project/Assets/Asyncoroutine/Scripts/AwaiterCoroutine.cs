@@ -8,8 +8,8 @@ namespace Asyncoroutine
 {
     public partial class AwaiterCoroutine<TInstruction> : INotifyCompletion
     {
-        private Action _continuation;
-        public TInstruction Instruction { get; private set; }
+        protected Action Continuation { get; private set; }
+        public TInstruction Instruction { get; protected set; }
         public Enumerator Coroutine { get; private set; }
 
         private bool _isCompleted;
@@ -23,29 +23,19 @@ namespace Asyncoroutine
             {
                 _isCompleted = value;
 
-                if (value && _continuation != null)
-                    _continuation();
+                if (value && Continuation != null)
+                    Continuation();
             }
+        }
+
+        public AwaiterCoroutine()
+        {
+
         }
 
         public AwaiterCoroutine(TInstruction instruction)
         {
             ProcessCoroutine(instruction);
-        }
-
-        public AwaiterCoroutine(Func<TInstruction> func)
-        {
-            if (SynchronizationContext.Current != null)
-            {
-                ProcessCoroutine(func());
-            }
-            else
-            {
-                AwaiterCoroutineer.Instance.SynchronizationContext.Post(state =>
-                {
-                    ProcessCoroutine(func());
-                }, null);
-            }
         }
 
         private void ProcessCoroutine(TInstruction instruction)
@@ -63,12 +53,32 @@ namespace Asyncoroutine
 
         void INotifyCompletion.OnCompleted(Action continuation)
         {
-            _continuation = continuation;
+            Continuation = continuation;
         }
 
         public AwaiterCoroutine<TInstruction> GetAwaiter()
         {
             return this;
+        }
+    }
+
+    public class AwaiterCoroutineWaitForMainThread : AwaiterCoroutine<WaitForMainThread>
+    {
+        public AwaiterCoroutineWaitForMainThread()
+        {
+            Instruction = default(WaitForMainThread);
+
+            if (SynchronizationContext.Current != null)
+            {
+                Continuation();
+            }
+            else
+            {
+                AwaiterCoroutineer.Instance.SynchronizationContext.Post(state =>
+                {
+                    Continuation();
+                }, null);
+            }
         }
     }
 }

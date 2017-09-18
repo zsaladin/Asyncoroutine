@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,10 +8,10 @@ namespace Asyncoroutine.Example
     {
         private async void Example1()
         {
-            // CoroutineSync must be initialized on main thread before calling this.CoroutineSync.
-            // It's  necessary just once.
+            // CoroutineSync must be initialized on main thread before awaiting YieldInstruction.
+            // It's necessary just once in runtime.
             // If you use await coroutine on main thread like await WaitForSeoncds then it will be initialized implictly so initialization state is not needed.
-            this.CoroutineSyncInit();
+            Asyncoroutine.Ready();
 
             Debug.Log("Example1");
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
@@ -24,12 +21,8 @@ namespace Asyncoroutine.Example
             Debug.Log("Delay ConfigureAwait(false)");
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
 
-            // This code below will throw an exception for 'WWW'. It must be called on main thread.
-            // await new WWW("http://google.com");
-
-            // This 'new WWW' will be executed on main thead.
-            WWW www = await this.CoroutineSync(() => new WWW("https://api.github.com/users/zsaladin/repos"));
-            Debug.LogFormat("AwaiterCoroutine.Sync WWW {0}", www.text);
+            await new WaitForMainThread();
+            WWW www = await new WWW("https://api.github.com/users/zsaladin/repos");
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
         }
 
@@ -37,8 +30,8 @@ namespace Asyncoroutine.Example
         {
             // It's not necessary to initialize CoroutineSync at this moment.
             // Because these codes below use await coroutine on main thread(await new WaitForSeconds).
-            // At that time CoroutineSync will be initialized implictly.
-            // this.CoroutineSyncInit();
+            // At that time Asyncoroutine will be initialized implictly.
+            //Asyncoroutine.Ready();
 
             Debug.Log("Example2");
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
@@ -53,11 +46,11 @@ namespace Asyncoroutine.Example
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
 
             // This code below will make an exception 'WWW'. It must be called on main thread.
-            // await new WWW("http://google.com");
+            // await new WWW(""https://api.github.com/users/zsaladin/repos");
 
-            // This 'new WWW' will be executed on main thead.
-            WWW www = await this.CoroutineSync(() => new WWW("https://api.github.com/users/zsaladin/repos"));
-            Debug.LogFormat("AwaiterCoroutine.Sync WWW {0}", www.text);
+            await new WaitForMainThread();
+            WWW www = await new WWW("https://api.github.com/users/zsaladin/repos");
+            Debug.LogFormat("Asyncoroutine WWW {0}", www.text);
             Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
         }
 
