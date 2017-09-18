@@ -34,8 +34,26 @@ All the things will happen by 'using Asyncoroutine'.
 
 Also it makes 'Awake' and 'OnEnable' use Coroutine. Unlike 'Start' we could not use Coroutine in them but you can from now.
 (Actually there is an another alternative in above situation. See [link](https://github.com/zsaladin/AsCoroutine))
-
 Moreover you can use Coroutine on 'OnDisable' by using it.
+
+### WaitForMainThread
+Sometimes you might want to call Coroutine from non main thread. It requires to switch to main thread.
+Asyncoroutine provides it.
+```C#
+using Asyncoroutine;
+
+private async void Awake()
+{
+    // It's not guaranteed that it will be completed on main thread because of 'ConfigureAwait(false)'
+    await Task.Delay(1000).ConfigureAwait(false); 
+    Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
+
+    await new WaitForMainThread();
+    WWW www = await new WWW("https://api.ipify.org?format=json");
+    Debug.Log(www.text);
+    Debug.LogFormat("ThreadID : {0}", Thread.CurrentThread.ManagedThreadId);
+}
+```
 
 ### Task in Coroutine
 If you don't familiar with async/await then use original Coroutine style with async/await
