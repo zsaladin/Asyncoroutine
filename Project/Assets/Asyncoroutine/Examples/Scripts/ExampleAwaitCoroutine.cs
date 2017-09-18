@@ -19,7 +19,7 @@ namespace Asyncoroutine.Example
             await Task.Delay(1000);
             Debug.Log("Delay");
 
-            WWW www = await new WWW("http://google.com");
+            WWW www = await new WWW("https://api.ipify.org?format=json");
             Debug.Log(www.text);
 
             await new WaitForSecondsRealtime(1f);
