@@ -8,7 +8,8 @@ namespace Asyncoroutine
 {
     public partial class AwaiterCoroutine<TInstruction> : INotifyCompletion
     {
-        protected Action Continuation { get; private set; }
+        private Action _continuation;
+
         public TInstruction Instruction { get; protected set; }
         public Enumerator Coroutine { get; private set; }
 
@@ -19,12 +20,15 @@ namespace Asyncoroutine
             {
                 return _isCompleted;
             }
-            private set
+            protected set
             {
                 _isCompleted = value;
 
-                if (value && Continuation != null)
-                    Continuation();
+                if (value && _continuation != null)
+                {
+                    _continuation();
+                    _continuation = null;
+                }
             }
         }
 
@@ -53,12 +57,12 @@ namespace Asyncoroutine
 
         void INotifyCompletion.OnCompleted(Action continuation)
         {
-            Continuation = continuation;
+            OnCompleted(continuation);
         }
 
-        public AwaiterCoroutine<TInstruction> GetAwaiter()
+        protected virtual void OnCompleted(Action continuation)
         {
-            return this;
+            _continuation = continuation;
         }
     }
 
@@ -67,16 +71,21 @@ namespace Asyncoroutine
         public AwaiterCoroutineWaitForMainThread()
         {
             Instruction = default(WaitForMainThread);
+        }
+
+        protected override void OnCompleted(Action continuation)
+        {
+            base.OnCompleted(continuation);
 
             if (SynchronizationContext.Current != null)
             {
-                Continuation();
+                IsCompleted = true;
             }
             else
             {
                 AwaiterCoroutineer.Instance.SynchronizationContext.Post(state =>
                 {
-                    Continuation();
+                    IsCompleted = true;
                 }, null);
             }
         }
