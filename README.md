@@ -42,7 +42,7 @@ Asyncoroutine provides it.
 ```C#
 using Asyncoroutine;
 
-private async void Awake()
+async void Awake()
 {
     // It's not guaranteed that it will be completed on main thread because of 'ConfigureAwait(false)'
     await Task.Delay(1000).ConfigureAwait(false); 
@@ -60,7 +60,7 @@ If you don't familiar with async/await then use original Coroutine style with as
 ```C#
 using Asyncoroutine;
 
-private IEnumerator Start()
+IEnumerator Start()
 {
     yield return new WaitForSeconds(1f);
     Debug.Log("WaitForSeconds");
