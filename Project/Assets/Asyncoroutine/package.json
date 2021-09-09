@@ -1,0 +1,14 @@
+{
+  "name": "zsaladin.asyncoroutine", 
+  "version": "1.0.0",
+  "license" : "MIT",
+  "author"  : { 
+	"name" : "Kim Daehee",
+   	"email" : "zsaladinz@gmail.com",
+   	"url" : "https://github.com/zsaladin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zsaladin/Asyncoroutine.git"
+  }
+}
