@@ -85,3 +85,13 @@ Just write 'AsCoroutine()' at the end of Task. It creates a proper YieldInstrunc
 ## License
 - This asset is under MIT License.
 
+## Unity Package Manager
+
+Asyncoroutine can now be installed through the unity package manager. Select Add Package from git URL and input this URL:
+```
+https://github.com/tmiv/Asyncoroutine.git?path=/Project/Assets/Asyncoroutine
+```
+or add this line to your project's Packages/manifest.json file manually:
+```json
+"zsaladin.asyncoroutine": "https://github.com/tmiv/Asyncoroutine.git?path=/Project/Assets/Asyncoroutine",
+```
